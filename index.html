@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boot Screen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .boot-container {
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+        .boot-text {
+            font-size: 24px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .loading-bar {
+            width: 400px;
+            height: 30px;
+            border: 2px solid #0f0;
+            margin: 20px auto;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+        .loading-bar::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: #0f0;
+            animation: loading 3s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="boot-container">
+        <div class="boot-text">
+            <p>SYSTEM BOOT IN PROGRESS...</p>
+            <p>Loading core files...</p>
+        </div>
+        <div class="loading-bar"></div>
+        <div class="boot-text">
+            <p id="status">Initializing...</p>
+        </div>
+    </div>
+
+    <script>
+        const statuses = [
+            'Loading kernel...',
+            'Initializing hardware...',
+            'Starting services...',
+            'Boot complete!',
+        ];
+        let index = 0;
+        setInterval(() => {
+            if (index < statuses.length) {
+                document.getElementById('status').textContent = statuses[index];
+                index++;
+            }
+        }, 750);
+    </script>
+</body>
+</html>
